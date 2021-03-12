@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+#nazar pes
+main() {
+  opt_command=$1
+  opt_env=$2
+
+  if [[ $opt_env != dev ]]; then
+    echo "Unresolved env, available options: dev"
+    exit 1
+  fi
+
+  if [[ $opt_command = up ]]; then
+    res_command="up -d"
+  elif [[ $opt_command = down ]]; then
+    res_command=down
+  elif [[ $opt_command = build ]]; then
+    res_command=build
+  else
+    echo "Unresolved command, available options: up, down, build"
+    exit 1
+  fi
+
+  docker-compose -f docker-compose.$opt_env.yml $res_command
+}
+
+main $@
